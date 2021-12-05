@@ -1,2 +1,2 @@
-# wzq_utils
+# wz
 c++工具库
