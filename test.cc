@@ -1,10 +1,10 @@
 #include <iostream>
 #include <thread>
 
-#include "common/cmd.h"
-#include "common/defer.h"
-#include "common/noncopyable.h"
-#include "common/own_strings.h"
+#include "base/cmd.h"
+#include "base/defer.h"
+#include "base/noncopyable.h"
+#include "base/own_strings.h"
 #include "timer/timer.h"
 
 // 默认是private继承，禁止运行时多态即 wzq::NonCopyAble x = new Test(); 会出现编译错误

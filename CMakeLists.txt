@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.0.2)
 project(wzq_utils)
 
 message( STATUS "CMake version ${CMAKE_VERSION}" )
@@ -12,6 +12,7 @@ include_directories(${CMAKE_SOURCE_DIR}
                     ${CMAKE_SOURCE_DIR}/thread/
                     ${CMAKE_SOURCE_DIR}/timer/
                     ${CMAKE_SOURCE_DIR}/singleton/
+                    ${CMAKE_SOURCE_DIR}/base/
                     ${CMAKE_SOURCE_DIR}/common/)
 
 add_subdirectory(thread)
