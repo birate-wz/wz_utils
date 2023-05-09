@@ -1,2 +1,3 @@
 # wz
-c++工具库
+Run:
+ ./build.sh
