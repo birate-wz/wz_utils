@@ -10,7 +10,7 @@
 class ThreadPool
 {
 public:
-    using Task = std::function<void()>;
+    typedef std::function<void()> Task;
     explicit ThreadPool(const std::string &name = std::string("ThreadPool"));
     ~ThreadPool();
 
@@ -29,7 +29,7 @@ public:
 private:
     void runThread();
     MutexLock mutex_;
-    std::vector<std::unique_ptr<Thread>> threads_
+    std::vector<std::unique_ptr<Thread>> threads_;
     std::deque<Task> taskQueue_;
     bool running_;
     std::string name_;

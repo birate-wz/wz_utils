@@ -1,24 +1,98 @@
-cmake_minimum_required(VERSION 3.0.2)
-project(wzq_utils)
+cmake_minimum_required(VERSION 3.10)
+project(wzq_utils C CXX)
+
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release")
+endif()
 
 message( STATUS "CMake version ${CMAKE_VERSION}" )
 message (STATUS "source dir: ${CMAKE_SOURCE_DIR}")
 message (STATUS "build type: ${CMAKE_BUILD_TYPE}")
 message (STATUS "compiler: ${CMAKE_CXX_COMPILER}")
 
-set (CMAKE_CXX_FLAGS "--std=c++17")
+set (CXX_FLAGS
+-g
+# -DVALGRIND
+-DCHECK_PTHREAD_RETURN_VALUE
+-D_FILE_OFFSET_BITS=64
+-Wall
+-Wextra
+-Werror
+-Wconversion
+-Wno-unused-parameter
+-Wold-style-cast
+-Woverloaded-virtual
+-Wpointer-arith
+-Wshadow
+-Wwrite-strings
+-march=native
+# -MMD
+-std=c++11
+-rdynamic
+)
 
-include_directories(${CMAKE_SOURCE_DIR}
-                    ${CMAKE_SOURCE_DIR}/thread/
-                    ${CMAKE_SOURCE_DIR}/timer/
-                    ${CMAKE_SOURCE_DIR}/singleton/
-                    ${CMAKE_SOURCE_DIR}/base/
-                    ${CMAKE_SOURCE_DIR}/common/)
+string(REPLACE ";" " " CMAKE_CXX_FLAGS "${CXX_FLAGS}")
 
-add_subdirectory(thread)
-add_subdirectory(singleton)
+set(CMAKE_CXX_FLAGS_DEBUG "-O0")
+set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
-add_executable(test_wzq test.cc)
-target_link_libraries(test_wzq pthread)
+find_package(Boost REQUIRED)
+find_package(Protobuf)
+find_package(CURL)
+find_package(ZLIB)
+find_path(CARES_INCLUDE_DIR ares.h)
+find_library(CARES_LIBRARY NAMES cares)
+find_path(MHD_INCLUDE_DIR microhttpd.h)
+find_library(MHD_LIBRARY NAMES microhttpd)
+find_library(BOOSTTEST_LIBRARY NAMES boost_unit_test_framework)
+find_library(BOOSTPO_LIBRARY NAMES boost_program_options)
+find_library(BOOSTSYSTEM_LIBRARY NAMES boost_system)
+find_path(TCMALLOC_INCLUDE_DIR gperftools/heap-profiler.h)
+find_library(TCMALLOC_LIBRARY NAMES tcmalloc_and_profiler)
+find_path(HIREDIS_INCLUDE_DIR hiredis/hiredis.h)
+find_library(HIREDIS_LIBRARY NAMES hiredis)
+find_path(GD_INCLUDE_DIR gd.h)
+find_library(GD_LIBRARY NAMES gd)
+find_program(THRIFT_COMPILER thrift)
+find_path(THRIFT_INCLUDE_DIR thrift)
+find_library(THRIFT_LIBRARY NAMES thrift)
+
+if(CARES_INCLUDE_DIR AND CARES_LIBRARY)
+  message(STATUS "found cares")
+endif()
+if(CURL_FOUND)
+  message(STATUS "found curl")
+endif()
+if(PROTOBUF_FOUND)
+  message(STATUS "found protobuf")
+endif()
+if(TCMALLOC_INCLUDE_DIR AND TCMALLOC_LIBRARY)
+  message(STATUS "found tcmalloc")
+endif()
+if(ZLIB_FOUND)
+  message(STATUS "found zlib")
+endif()
+if(HIREDIS_INCLUDE_DIR AND HIREDIS_LIBRARY)
+  message(STATUS "found hiredis")
+endif()
+if(GD_INCLUDE_DIR AND GD_LIBRARY)
+  message(STATUS "found gd")
+endif()
+if(THRIFT_COMPILER AND THRIFT_INCLUDE_DIR AND THRIFT_LIBRARY)
+  message(STATUS "found thrift")
+endif()
+
+include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${Boost_INCLUDE_DIRS})
+
+
+message(STATUS "CXX_FLAGS = " ${CMAKE_CXX_FLAGS} " " ${CMAKE_CXX_FLAGS_${BUILD_TYPE}})
+
+add_subdirectory(base)
+#add_subdirectory(singleton)
+#add_executable(test_wzq test.cc)
+#target_link_libraries(test_wzq pthread)
 
 # target_link_libraries(test_thread wzq_thread)

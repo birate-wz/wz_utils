@@ -17,6 +17,11 @@ __thread char t_errnobuf[512];
 __thread char t_time[64];
 __thread time_t t_lastSecond;
 
+const char* strerror_tl(int savedErrno)
+{
+  return strerror_r(savedErrno, t_errnobuf, sizeof t_errnobuf);
+}
+
 static std::string getCurrentSystemTime()
 {
 	auto tt = std::chrono::system_clock::to_time_t
@@ -24,8 +29,8 @@ static std::string getCurrentSystemTime()
 	struct tm* ptm = localtime(&tt);
 	char date[60] = { 0 };
 	sprintf(date, "%d-%02d-%02d-%02d.%02d.%02d",
-		(int)ptm->tm_year + 1900, (int)ptm->tm_mon + 1, (int)ptm->tm_mday,
-		(int)ptm->tm_hour, (int)ptm->tm_min, (int)ptm->tm_sec);
+		static_cast<int>(ptm->tm_year) + 1900, static_cast<int>(ptm->tm_mon) + 1, static_cast<int>(ptm->tm_mday),
+		static_cast<int>(ptm->tm_hour), static_cast<int>(ptm->tm_min), static_cast<int>(ptm->tm_sec));
 	return std::string(date);
 }
 

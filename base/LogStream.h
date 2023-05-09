@@ -23,7 +23,7 @@ public:
     }
 
     void append(const char* buf, size_t len) {
-        if (implicit_cast<size_t>(avail()) > len) {
+        if (static_cast<size_t>(avail()) > len) {
             memcpy(cur_, buf, len);
             cur_ += len;
         }
@@ -43,7 +43,7 @@ public:
     const char* debugString();
     void setCookie(void (*cookie)()) { cookie_ = cookie; }
     // for used by unit test
-    std::string toString() const { return string(data_, length()); }
+    std::string toString() const { return std::string(data_, length()); }
     //StringPiece toStringPiece() const { return StringPiece(data_, length()); }
 private:
   // Must be outline function for cookies.
@@ -61,8 +61,6 @@ class LogStream : noncopyable
 {
 public:
 typedef FixedBuffer<kSmallBuffer> Buffer;
-    LogStream(/* args */);
-    ~LogStream();
     LogStream& operator<<(bool v)
     {
         buffer_.append(v ? "1" : "0", 1);

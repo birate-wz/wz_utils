@@ -21,7 +21,7 @@ public:
 
     void start();
     void run();
-    int joinThread();
+    int join();
 
     bool started() const { return started_; }
     pid_t tid() const { return tid_; }
@@ -31,7 +31,7 @@ private:
     void setDefaultName();
     bool started_;
     bool joined_;
-    pthread_t  pthreadID_; 
+    pthread_t  pthreadID_;
     pid_t tid_;
     ThreadFunc func_;
     std::string  name_;

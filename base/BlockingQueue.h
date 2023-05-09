@@ -22,13 +22,13 @@ using queue_type = std::deque<T>;
 
     void put(const T& x) {
         MutexLockGuard lock(mutex_);
-        queue.push_back(x);
+        queue_.push_back(x);
         cond_.notify();
     }
 
     void put(const T&& x) {
         MutexLockGuard lock(mutex_);
-        queue.push_back(std::move(x));
+        queue_.push_back(std::move(x));
         cond_.notify();
     }
 
@@ -38,7 +38,7 @@ using queue_type = std::deque<T>;
             cond_.wait();
          }
          T  data = queue_.front();
-         queue.pop_front();
+         queue_.pop_front();
          return data;
     }
 
@@ -57,7 +57,7 @@ using queue_type = std::deque<T>;
     }
 private:
     mutable MutexLock mutex_;
-    Condition cond_    GUARDED_BY(mutex_);
+    Condition   cond_    GUARDED_BY(mutex_);
     queue_type  queue_ GUARDED_BY(mutex_); // clang 编译器支持
 };
 

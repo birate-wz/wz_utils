@@ -2,11 +2,11 @@
 #ifndef __ASYNCLOGGING__H
 #define __ASYNCLOGGING__H
 
-#include "BlockingQueue.h"
-#include "CountDownLatch.h"
-#include "Mutex.h"
-#include "Thread.h"
-#include "LogStream.h"
+#include "base/BlockingQueue.h"
+#include "base/CountDownLatch.h"
+#include "base/Mutex.h"
+#include "base/Thread.h"
+#include "base/LogStream.h"
 
 #include <atomic>
 #include <vector>
@@ -14,9 +14,10 @@
 class AsyncLogging
 {
 public:
-    AsyncLogging(const string&basename,
+    AsyncLogging(const std::string&basename,
                 off_t rollSize,
                 int flushInterval = 3);
+
     ~AsyncLogging()
     {
         if (running_)
@@ -47,8 +48,8 @@ private:
 
     const int flushInterval_;
     std::atomic<bool> running_;
-    const string basename_;
-    const off_t rollSize_;
+    const std::string basename_;
+    //const off_t rollSize_;
     Thread thread_;
     CountDownLatch latch_;
     MutexLock mutex_;

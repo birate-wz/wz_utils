@@ -1,5 +1,5 @@
-#include "AsyncLogging.h"
-#include "Logging.h"
+#include "base/AsyncLogging.h"
+#include "base/Logging.h"
 
 #include <stdio.h>
 #include <sys/resource.h>
@@ -28,9 +28,9 @@ void bench(bool longLog)
                << cnt;
       ++cnt;
     }
-    anto end = std::chrono::steady_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end-start;
-    std::cout<<"elapsed time: " << elapsed_seconds.count() << endl;
+    auto end_time = std::chrono::steady_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end_time - start;
+    std::cout<<"elapsed time: " << elapsed_seconds.count() << std::endl;
     struct timespec ts = { 0, 500*1000*1000 };
     nanosleep(&ts, NULL);
   }
@@ -49,9 +49,10 @@ int main(int argc, char* argv[])
 
   char name[256] = { '\0' };
   strncpy(name, argv[0], sizeof name - 1);
-  g_asyncLog(::basename(name), kRollSize);
+  AsyncLogging log(::basename(name), kRollSize);
   g_asyncLog->start();
 
+  g_asyncLog = &log;
   bool longLog = argc > 1;
   bench(longLog);
 }

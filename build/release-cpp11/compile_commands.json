@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/home/wz/wz_utils/build/release-cpp11/base",
+  "command": "/usr/bin/c++   -I/home/wz/wz_utils  -g -DCHECK_PTHREAD_RETURN_VALUE -D_FILE_OFFSET_BITS=64 -Wall -Wextra -Werror -Wconversion -Wno-unused-parameter -Wold-style-cast -Woverloaded-virtual -Wpointer-arith -Wshadow -Wwrite-strings -march=native -std=c++11 -rdynamic -O2 -DNDEBUG   -o CMakeFiles/wz_base.dir/AsyncLogging.cc.o -c /home/wz/wz_utils/base/AsyncLogging.cc",
+  "file": "/home/wz/wz_utils/base/AsyncLogging.cc"
+},
+{
+  "directory": "/home/wz/wz_utils/build/release-cpp11/base",
+  "command": "/usr/bin/c++   -I/home/wz/wz_utils  -g -DCHECK_PTHREAD_RETURN_VALUE -D_FILE_OFFSET_BITS=64 -Wall -Wextra -Werror -Wconversion -Wno-unused-parameter -Wold-style-cast -Woverloaded-virtual -Wpointer-arith -Wshadow -Wwrite-strings -march=native -std=c++11 -rdynamic -O2 -DNDEBUG   -o CMakeFiles/wz_base.dir/Condition.cc.o -c /home/wz/wz_utils/base/Condition.cc",
+  "file": "/home/wz/wz_utils/base/Condition.cc"
+},
+{
+  "directory": "/home/wz/wz_utils/build/release-cpp11/base",
+  "command": "/usr/bin/c++   -I/home/wz/wz_utils  -g -DCHECK_PTHREAD_RETURN_VALUE -D_FILE_OFFSET_BITS=64 -Wall -Wextra -Werror -Wconversion -Wno-unused-parameter -Wold-style-cast -Woverloaded-virtual -Wpointer-arith -Wshadow -Wwrite-strings -march=native -std=c++11 -rdynamic -O2 -DNDEBUG   -o CMakeFiles/wz_base.dir/CountDownLatch.cc.o -c /home/wz/wz_utils/base/CountDownLatch.cc",
+  "file": "/home/wz/wz_utils/base/CountDownLatch.cc"
+},
+{
+  "directory": "/home/wz/wz_utils/build/release-cpp11/base",
+  "command": "/usr/bin/c++   -I/home/wz/wz_utils  -g -DCHECK_PTHREAD_RETURN_VALUE -D_FILE_OFFSET_BITS=64 -Wall -Wextra -Werror -Wconversion -Wno-unused-parameter -Wold-style-cast -Woverloaded-virtual -Wpointer-arith -Wshadow -Wwrite-strings -march=native -std=c++11 -rdynamic -O2 -DNDEBUG   -o CMakeFiles/wz_base.dir/Logging.cc.o -c /home/wz/wz_utils/base/Logging.cc",
+  "file": "/home/wz/wz_utils/base/Logging.cc"
+},
+{
+  "directory": "/home/wz/wz_utils/build/release-cpp11/base",
+  "command": "/usr/bin/c++   -I/home/wz/wz_utils  -g -DCHECK_PTHREAD_RETURN_VALUE -D_FILE_OFFSET_BITS=64 -Wall -Wextra -Werror -Wconversion -Wno-unused-parameter -Wold-style-cast -Woverloaded-virtual -Wpointer-arith -Wshadow -Wwrite-strings -march=native -std=c++11 -rdynamic -O2 -DNDEBUG   -o CMakeFiles/wz_base.dir/LogStream.cc.o -c /home/wz/wz_utils/base/LogStream.cc",
+  "file": "/home/wz/wz_utils/base/LogStream.cc"
+},
+{
+  "directory": "/home/wz/wz_utils/build/release-cpp11/base",
+  "command": "/usr/bin/c++   -I/home/wz/wz_utils  -g -DCHECK_PTHREAD_RETURN_VALUE -D_FILE_OFFSET_BITS=64 -Wall -Wextra -Werror -Wconversion -Wno-unused-parameter -Wold-style-cast -Woverloaded-virtual -Wpointer-arith -Wshadow -Wwrite-strings -march=native -std=c++11 -rdynamic -O2 -DNDEBUG   -o CMakeFiles/wz_base.dir/Thread.cc.o -c /home/wz/wz_utils/base/Thread.cc",
+  "file": "/home/wz/wz_utils/base/Thread.cc"
+},
+{
+  "directory": "/home/wz/wz_utils/build/release-cpp11/base/test",
+  "command": "/usr/bin/c++   -I/home/wz/wz_utils  -g -DCHECK_PTHREAD_RETURN_VALUE -D_FILE_OFFSET_BITS=64 -Wall -Wextra -Werror -Wconversion -Wno-unused-parameter -Wold-style-cast -Woverloaded-virtual -Wpointer-arith -Wshadow -Wwrite-strings -march=native -std=c++11 -rdynamic -O2 -DNDEBUG   -o CMakeFiles/asynclogging_test.dir/AsyncLogging_test.cc.o -c /home/wz/wz_utils/base/test/AsyncLogging_test.cc",
+  "file": "/home/wz/wz_utils/base/test/AsyncLogging_test.cc"
+}
+]

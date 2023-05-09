@@ -2,13 +2,12 @@
 #include "ThreadPool.h"
 
 
-ThreadPool::ThreadPool(const std::string &name):
-    mutex_(),
+ThreadPool::ThreadPool(const std::string &name)
+  : mutex_(),
     running_(false),
     name_(name),
-    notEmpty_(mutex_),
+    notEmpty_(mutex_)
 {
-
 }
 
 ThreadPool::~ThreadPool() {
@@ -23,7 +22,7 @@ void ThreadPool::stop() {
         running_ = false;
         notEmpty_.notifyAll();
         for (auto& thread : threads_) {
-            thread->joinThread();
+            thread->join();
         }
         threads_.clear();
         taskQueue_.clear();
@@ -37,11 +36,11 @@ void ThreadPool::start(int numthreads) {
     }
     running_ = true;
     threads_.reserve(numthreads);
-    for (auto i : numthreads) {
+    for (int i = 0; i < numthreads; i++) {
         char id[32];
         snprintf(id, sizeof id, "id", i+1);
         threads_.emplace_back(new Thread(std::bind(&ThreadPool::runThread, this), name_+id));
-        threads_[i].start();
+        threads_[i]->start();
     }
 }
 

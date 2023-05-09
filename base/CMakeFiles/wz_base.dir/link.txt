@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libwz_base.a  CMakeFiles/wz_base.dir/AsyncLogging.cc.o CMakeFiles/wz_base.dir/Condition.cc.o CMakeFiles/wz_base.dir/CountDownLatch.cc.o CMakeFiles/wz_base.dir/Logging.cc.o CMakeFiles/wz_base.dir/LogStream.cc.o CMakeFiles/wz_base.dir/Thread.cc.o CMakeFiles/wz_base.dir/ThreadPool.cc.o
+/usr/bin/ranlib ../lib/libwz_base.a

@@ -15,12 +15,12 @@ static std::string getCurrentSystemTime()
 	struct tm* ptm = localtime(&tt);
 	char date[60] = { 0 };
 	sprintf(date, "%d-%02d-%02d-%02d.%02d.%02d",
-		(int)ptm->tm_year + 1900, (int)ptm->tm_mon + 1, (int)ptm->tm_mday,
-		(int)ptm->tm_hour, (int)ptm->tm_min, (int)ptm->tm_sec);
+		static_cast<int>(ptm->tm_year) + 1900, static_cast<int>(ptm->tm_mon) + 1, static_cast<int>(ptm->tm_mday),
+		static_cast<int>(ptm->tm_hour), static_cast<int>(ptm->tm_min), static_cast<int>(ptm->tm_sec));
 	return std::string(date);
 }
 
-AsyncLogging::AsyncLogging(const string& basename,
+AsyncLogging::AsyncLogging(const std::string& basename,
                             off_t rollSize,
                             int flushInterval):
     flushInterval_(flushInterval),
@@ -51,7 +51,7 @@ void AsyncLogging::append(const char* logline, int len)
         } else {
             currentBuffer_.reset(new Buffer);     // 很少发生
         }
-        currentBuffer_.append(logline, len);
+        currentBuffer_->append(logline, len);
         cond_.notify();
     }
 }
@@ -60,7 +60,7 @@ void AsyncLogging::threadFunc()
 {
     if (running_ == false) return;
     latch_.countDown();
-    std::ofstream output(basename_, ios::out | ios::app);
+    std::ofstream output(basename_, std::ios::out | std::ios::app);
     BufferPtr newBuffer1(new Buffer);
     BufferPtr newBuffer2(new Buffer);
     newBuffer1->bzero();
@@ -74,7 +74,7 @@ void AsyncLogging::threadFunc()
 
         {
             MutexLockGuard lock(mutex_);
-            if (buffers_,empty()) {
+            if (buffers_.empty()) {
                 cond_.waitForSeconds(flushInterval_);
             }
             buffers_.push_back(std::move(currentBuffer_));
@@ -90,13 +90,13 @@ void AsyncLogging::threadFunc()
             char buf[256];
             snprintf(buf, sizeof buf, "Dropped log messages at %s, %zd larger buffers\n", getCurrentSystemTime().c_str(), buffersToWrite.size()-2);
             fputs(buf, stderr);
-            output<<buf<<endl;
+            output<<buf<<std::endl;
             buffersToWrite.erase(buffersToWrite.begin()+2, buffersToWrite.end());
         }
 
         for (const auto& buffer : buffersToWrite) {
         // FIXME: use unbuffered stdio FILE ? or use ::writev ?
-            output<<buffer->data()<<endl;
+            output<<buffer->data()<<std::endl;
         }
         if (buffersToWrite.size() > 2) {
             // drop non-bzero-ed buffers, avoid trashing

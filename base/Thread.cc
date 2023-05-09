@@ -23,6 +23,13 @@ Thread::Thread(ThreadFunc func, const std::string& name) :
     setDefaultName();
 }
 
+Thread::~Thread()
+{
+  if (started_ && !joined_)
+  {
+    pthread_detach(pthreadID_);
+  }
+}
 void Thread::run()
 {
     tid_ = static_cast<pid_t>(::syscall(SYS_gettid));
@@ -56,7 +63,7 @@ void Thread::start() {
     }
 }
 
-int Thread::joinThread() {
+int Thread::join() {
     if (!started_ || joined_)  return false;
     joined_ = true;
     return pthread_join(pthreadID_, NULL);
